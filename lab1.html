@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>ФП | 1 Лабораторна Робота | Куценко Микита Олександрович</title>
+</head>
+<body id="main">
+    <header class="header">
+        <h1 class="name link"><a href="index.html">Functional Programming</a></h1>
+        <ul class="list">
+            <li class="item link"><a href="index.html">Головна</a></li>
+            <li class="item link"><a href="labs.html">Лабораторні</a></li>
+        </ul>
+    </header>
+    <section class="lab">
+     <h2 class="title">Лабораторна робота 1</h2>
+     <h3 class="theme">"Використання рекурсії для організації повторювальних процесів"</h3>
+     <div class="block">
+        <h3 class="block__title">Зміст</h3>
+        <ol class="block__list">
+            <li class="block__item">
+                <a href="#goal" class="link">Мета роботи</a>
+            </li>
+            <li class="block__item">
+                <a href="#condition" class="link">Умова завдання</a>
+            </li>
+            <li class="block__item">
+                <a href="#ide" class="link">Обґрунтування вибору мови функціонального програмування та IDE</a>
+            </li>
+            <li class="block__item">
+                <a href="#code" class="link">Код</a>
+            </li>
+            <li class="block__item">
+                <a href="#result" class="link">Скріншот роботи та результату</a>
+            </li>
+            <li class="block__item">
+                <a href="#conclusion" class="link">Висновок</a>
+            </li>
+        </ol>
+    </div>
+    <div id="goal" class="block">
+        <h3 class="block__title">Мета роботи</h3>
+        <p class="block__text">Сформувати декларативне мислення в галузі програмування завдяки використанню чистих функцій, рекурсій замість циклів, запобіганню даних, що змінюються. Опанувати застосування рекурсивних функцій для обчислювальних процесів.</p>
+    </div>
+    <div id="condition" class="block">
+        <h3 class="block__title">Умова завдання</h3>
+        <p class="block__text">Написати процедури, що обчислюють задану функцію за допомогою рекурсивного процесу. Продемонструвати застосування звичайної та хвостової рекурсії.</p>
+        <p class="block__text">Варіант: 14</p>
+        <ol class="block__condition_list">
+            <!-- &nbsp; -->
+            <!-- <span class="block__condition_var">EXAMPLE</span> -->
+            <li class="block__condition_item">
+                Увести з клавіатури три натуральних числа <span class="block__condition_var">b,p,m</span>. 
+                Обчислити значення виразу, де операція <span class="block__condition_var">b^p&nbsp;mod(m)</span> 
+                обраховує остачу від ділення цілих чисел. 
+                Для зведення в степень <span class="block__condition_var">b^p</span> 
+                з логарифмічною складністю <span class="block__condition_var">O(log&nbsp;p)</span> 
+                використати рекурентне співвідношення:
+                <span id="condition_img_1_1" class="block__condition_img"></span>
+                Визначити глибину рекурсії.
+            </li>
+            <li class="block__condition_item">
+                Увести з клавіатури натуральне число <span class="block__condition_var">n</span>. 
+                Використовуючи рекурсивну функцію, визначити і вивести всі непарні (парні) числа 
+                з послідовності цілих чисел від <span class="block__condition_var">n</span> до 
+                <span class="block__condition_var">0</span>, зберігаючи їх порядок. 
+                Контрольний тест: введено число <span class="block__condition_var">8</span>, отриманий результат: <span class="block__condition_var">7 5 3 1</span>.
+            </li>
+        </ol>
+    </div>
+    <div id="ide" class="block">
+        <h3 class="block__title">Обґрунтування вибору мови функціонального програмування та IDE</h3>
+        <p class="block__text">Для виконання даної лабоаторної роботи, в якості мови програмування було обрано Racket, оскільки ця мова є мовою функціональною та належить сімейству Lisp / Scheme. Середовищем розробки було обрано супутній редактор - DrRacket.</p>
+    </div>
+    <div id="code" class="block">
+        <h3 class="block__title">Код</h3>
+        <p class="block__text">Задача 1</p>
+        <pre>
+            <code>
+#lang racket
+
+; лічильник глибини рекурсії
+(define rec_num -1)
+
+(define (func b p m)
+    ; визначення глибини рекурсії
+    (set! rec_num (+ rec_num 1))
+    (if (= p 0)
+        (modulo 1 m)
+        (if (even? p)
+            (modulo (expt (func b (round (/ p 2)) m)  2) m)
+            (* b (modulo (expt (func b (round (/ p 2)) m)  2) m))
+        )
+    )
+)
+
+; Input b
+(display "Input b: ")
+(define b (read))
+
+; Input p
+(display "Input p: ")
+(define p (read))
+
+; Input m
+(display "Input m: ")
+(define m (read))
+
+(printf "RESULT ::  ~a" (func b p m) )
+(printf "\nrec_num ::  ~a" rec_num )
+            </code>
+        </pre>
+        <p class="block__text">Задача 2</p>
+        <pre>
+            <code>
+#lang racket
+
+; лічильник глибини рекурсії
+(define rec_num -1)
+(define resultlist null )
+
+(define (getNotEven resList n)
+    (set! resList (list* n resList))
+    (getNums resList (sub1 n)))
+
+(define (getNums resultWitList n)
+    ; визначення глибини рекурсії
+    (set! rec_num (+ rec_num 1))
+    (printf "\nresultlist ::  ~a" resultWitList )
+
+    (cond
+        [(zero? n) (printf "\nRESULT ::  ~a" resultWitList )]
+        ; (set! resultlist (list* 0 resultlist))
+        
+        [(even? n) (getNums resultWitList (sub1 n))]
+        
+        [else (getNotEven resultWitList n)]
+        )
+)
+
+; Input b
+(display "Input n: ")
+(define n (read))
+
+(getNums resultlist n)
+(printf "\nrec_num ::  ~a" rec_num )
+            </code>
+        </pre>
+    </div>
+    <div id="result" class="block">
+        <h3 class="block__title">Скріншот роботи та результату</h3>
+        <p class="block__subtitle">Задача 1</p>
+        <p class="block__text">p = 0</p>
+        <span id="result_img_1_1_1" class="block__result_img"></span>
+        <p class="block__text">p - парне</p>
+        <span id="result_img_1_1_2" class="block__result_img"></span>
+        <p class="block__text">p - непарне</p>
+        <span id="result_img_1_1_3" class="block__result_img"></span>
+
+        <p class="block__subtitle">Задача 2</p>
+        <span id="result_img_1_2" class="block__result_img"></span>
+    </div>
+    <div id="conclusion" class="block">
+        <h3 class="block__title">Висновок</h3>
+        <p class="block__text">Під час виконання даної лабоаторної роботи, було ознайомлено з темою "Використання рекурсії для організації повторювальних процесів".</p>
+        <p class="block__text">Окім того, використовуючи базові функції функціональних мов програмування було вирішено 2 завдання. Для їх виконання були використані звичайна рекурсия (1 задача) та хвостова (2 задача)</p>
+    </div>
+    </section>
+
+    <footer class="footer">
+      <div class="links">
+          <h3 class="name link"><a href="index.html">Functional Programming</a></h3>
+          <ul class="list">
+              <li class="item link"><a href="index.html">Головна</a></li>
+              <li class="item link"><a href="labs.html">Лабораторні</a></li>
+          </ul>
+      </div>
+      <div class="contacts">
+          <p class="contact">Куценко Микита Олександрович</p>
+          <a href="mailto:nikita.kutsenko2@gmail.com" class="link">nikita.kutsenko2@gmail.com</a>
+          <a href="tel:+380984092300" class="link">+38 (098) 409-23-00</a>
+      </div>
+    </footer>
+</body>
+</html>
