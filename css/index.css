@@ -344,17 +344,14 @@ body {
 .lab .block .block__condition_list .block__condition_item:last-child {
   margin-bottom: 0;
 }
-.lab
-  .block
-  .block__condition_list
-  .block__condition_item
-  .block__condition_var {
+.lab .block .block__condition_list .block__condition_item .block__condition_var,
+.lab .block .block__list .block__item .block__condition_var {
   font-weight: 300;
   letter-spacing: 2px;
   border: 1px solid #ff9999;
   border-radius: 30px;
   background-color: #efefef;
-  padding: 4px 10px;
+  padding: 0 10px;
 }
 .lab
   .block
@@ -372,6 +369,9 @@ body {
 #condition_img_1_1 {
   background-image: url("../img/condition_img_1_1.png");
 }
+#condition_img_2_1 {
+  background-image: url("../img/condition_img_2_1.png");
+}
 .lab .block pre {
   display: flex;
   justify-content: center;
@@ -382,6 +382,7 @@ body {
   border-radius: 40px;
   font-family: monospace;
   margin-bottom: 48px;
+  overflow: scroll;
 }
 .lab .block pre code {
   margin: 28px 40px;
@@ -410,6 +411,14 @@ body {
 #result_img_1_2 {
   height: 250px;
   background-image: url("../img/result_img_1_2.png");
+}
+#result_img_2_1 {
+  height: 180px;
+  background-image: url("../img/result_img_2_1.png");
+}
+#result_img_2_2 {
+  height: 450px;
+  background-image: url("../img/result_img_2_2.png");
 }
 
 /* FOOTER */

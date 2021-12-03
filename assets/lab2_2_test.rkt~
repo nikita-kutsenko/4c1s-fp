@@ -1,0 +1,14 @@
+#lang racket
+
+(define checkM
+  ; Input m
+  (display "Input m > 100: ")
+  (define m (read))
+  (if (> m 100)
+    (checkM)
+    (checkM))
+)
+
+; Input n
+(display "Input n: ")
+(define n (read))

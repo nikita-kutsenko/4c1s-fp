@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>ФП | 2 Лабораторна Робота | Куценко Микита Олександрович</title>
+  </head>
+  <body id="main">
+    <header class="header">
+      <h1 class="name link"><a href="index.html">Functional Programming</a></h1>
+      <ul class="list">
+        <li class="item link"><a href="index.html">Головна</a></li>
+        <li class="item link"><a href="labs.html">Лабораторні</a></li>
+      </ul>
+    </header>
+    <section class="lab">
+      <h2 class="title">Лабораторна робота 2</h2>
+      <h3 class="theme">
+        "Рекурентні співвідношення для тригонометричних, експоненціальних
+        функцій та ланцюгові дроби"
+      </h3>
+      <div class="block">
+        <h3 class="block__title">Зміст</h3>
+        <ol class="block__list">
+          <li class="block__item">
+            <a href="#goal" class="link">Мета роботи</a>
+          </li>
+          <li class="block__item">
+            <a href="#condition" class="link">Умова завдання</a>
+          </li>
+          <li class="block__item">
+            <a href="#ide" class="link"
+              >Обґрунтування вибору мови функціонального програмування та IDE</a
+            >
+          </li>
+          <li class="block__item"><a href="#code" class="link">Код</a></li>
+          <li class="block__item">
+            <a href="#result" class="link">Скріншот роботи та результату</a>
+          </li>
+          <li class="block__item">
+            <a href="#conclusion" class="link">Висновок</a>
+          </li>
+        </ol>
+      </div>
+      <div id="goal" class="block">
+        <h3 class="block__title">Мета роботи</h3>
+        <p class="block__text">
+          Опанувати теоретичні основи застосування рекурентних співвідношень для
+          обчислення тригонометричних, експоненціальних, степеневих функцій та
+          розробити програми функціональними мовам програмування для обчислення
+          їх значень.
+        </p>
+      </div>
+      <div id="condition" class="block">
+        <h3 class="block__title">Умова завдання</h3>
+        <ul class="block__list">
+          <li class="block__item">
+            Написати процедури, що обчислюють задану функцію за допомогою
+            рекурентних послідовностей, розвинувши її у ряд Маклорена (або
+            Тейлора).
+          </li>
+          <li class="block__item">
+            Параметр функції має змінюватися від заданого в процесі виклику
+            мінімального значення до максимального значення із певним кроком.
+          </li>
+          <li class="block__item">
+            Розвинення функції в ряд здійснювати із заданою точністю. Точність
+            розрахунку задавати в діапазоні від
+            <span class="block__condition_var">10-2 </span> до
+            <span class="block__condition_var">10-6</span>.
+          </li>
+          <li class="block__item">
+            Для розвинення функції у ряд Маклорена (абоТейлора) створити власну
+            функцію, яка розраховує суму ряду за рекурентним співвідношенням.
+          </li>
+          <li class="block__item">
+            Значення функції
+            <span class="block__condition_var">tg(x)</span> обчислювати через
+            функції <span class="block__condition_var">sin(x)</span> та
+            <span class="block__condition_var">cos(x)</span>.
+          </li>
+          <li class="block__item">
+            Визначити похибку обчислення наближених значень функції як різницю
+            абсолютних значень наближеного обчислення та стандартного значення
+            функції.
+          </li>
+          <li class="block__item">
+            Стандартне значення функції обчислювати за допомогою бібліотечних
+            математичних функцій.
+          </li>
+        </ul>
+        <p class="block__text">Варіант: 13</p>
+        <ol class="block__condition_list">
+          <!-- &nbsp; -->
+          <!-- 
+                <span class="block__condition_var">EXAMPLE</span>
+             -->
+          <li class="block__condition_item">
+            Обчислити значення функції
+            <span class="block__condition_var">y</span>, розвинувши функцію
+            <span class="block__condition_var">ln(x)</span> у ряд Тейлора.
+            Аргумент х змінюється від
+            <span class="block__condition_var">-2</span> до
+            <span class="block__condition_var">4</span> з кроком
+            <span class="block__condition_var">0.5</span>. Визначити похибку.
+            <span id="condition_img_2_1" class="block__condition_img"></span>
+          </li>
+          <li class="block__condition_item">
+            Ввести з клавіатури два натуральних числа
+            <span class="block__condition_var"
+              >m&nbsp;>&nbsp;100,&nbsp;n&nbsp;>&nbsp;m</span
+            >. Визначити кількість чисел між
+            <span class="block__condition_var">m,&nbsp;n</span>, які складаються
+            з непарних цифр, або мають різні цифри. Подання числа у вигляді
+            структурованого типу (масивом або рядком) не використовувати .
+          </li>
+        </ol>
+      </div>
+      <div id="ide" class="block">
+        <h3 class="block__title">
+          Обґрунтування вибору мови функціонального програмування та IDE
+        </h3>
+        <p class="block__text">
+          Для виконання даної лабоаторної роботи, в якості мови програмування
+          було обрано Racket, оскільки ця мова є мовою функціональною та
+          належить сімейству Lisp / Scheme. Середовищем розробки було обрано
+          супутній редактор - DrRacket.
+        </p>
+      </div>
+      <div id="code" class="block">
+        <h3 class="block__title">Код</h3>
+        <p class="block__text">Задача 1</p>
+        <pre>
+            <code>
+#lang racket
+
+; функція розвинення ln у ряд Тейлора
+(define (ln_taylor x)
+  ; ініціалізація помилки 
+  (define err 0.001)
+  
+  ; ініціалізація функції для вирахування вираження
+  ; ln(x) = (x–1) – (x–1)^2/2 + (x–1)^3/3 – (x–1)^4/4 + ...
+  ; (-1 * (x-1)) / (i * i)
+  (define (calculate [cx 1.0] [iter 1] [res 0.0])
+    (if (> (abs cx) err)
+      ; true
+      (calculate (* cx (/
+                        (* -1 (- x 1))
+                        (* iter iter)))
+        (+ iter 1) (+ res cx))
+      ; false
+      res)
+  )
+  ; init
+  (calculate)
+)
+
+; функція власного ln
+(define (ln_custom x)
+  ; check conditions 
+  (cond
+    ; 0 < x < 2 --> ln(x)/ln(x-2)
+    [(and (< 0 x) (< x 2))
+      (/ (ln_taylor x) (ln_taylor (- x 2)))]
+    
+    ; 2 <= x <= 4 --> ln(x/2)
+    [(and (<= 2 x) (<= x 4))
+      (ln_taylor (/ x 2))]
+
+    ; else 
+    [else empty]
+  )
+)
+
+; функція обчислення вбудованою функцією ln
+(define (ln_default x)
+  ; check conditions 
+  (cond
+    ; ln(x)/ln(x-2) || 0 < x < 2
+    [(and (< 0 x) (< x 2))
+      (/ (log x) (log (- x 2)))]
+
+    ; ln(x/2)       || 2 <= x <= 4
+    [(and (<= 2 x) (<= x 4))
+      (log (/ x 2))]
+
+    ; else 
+    [else empty]
+  )
+)
+
+; start <= x <= end
+(define (iterate start end step func)
+  (define (lop array x)
+    (if (> x end)
+      array
+      (lop (append array (list (func x))) (+ x step)))
+  )
+  (lop '() start)
+)
+
+; отримання абсолютного значення N, яке є числом та дійсне число. Іначе повертає 0
+(define (get_absolute n)
+  (if (number? n)
+    (if (real? n) ; a number
+      (abs n) ; a real number
+      0) ; ;not a real number
+    0) ;not a number
+)
+
+; функція визначення похибки
+(define (get_difference list1 list2)
+  (define (minus res iter)
+    (if (< iter (length list1))
+      ; abs(list1 - list2)
+      (minus (append res (list (abs (-
+                  (get_absolute (list-ref list1 iter))
+                  (get_absolute (list-ref list2 iter))))))
+                (+ iter 1))
+      res)
+  )
+  (minus '() 0)
+)
+
+
+; init
+(define result_default (iterate -2 4 0.5 ln_default))
+(define result_custom (iterate -2 4 0.5 ln_custom))
+(define errors (get_difference result_default result_custom))
+
+; result 
+(printf "\nln ::  ~a \n" result_default )
+(printf "\npersonal ln ::  ~a \n" result_custom )
+(printf "\nerrors ::  ~a \n" errors )
+(printf "\nsum of errors ::  ~a \n" (apply + errors) )
+            </code>
+        </pre>
+        <p class="block__text">Задача 2</p>
+        <pre>
+            <code>
+#lang racket
+
+; Інінціалізація змінних
+(define m -1)
+(define n -1)
+(define amount 0)
+; Перевірка отриманих значень m та n від користувача
+(define (check_M m)
+  (if (> m 100)
+    (printf "--> m ::  ~a \n" m)
+    (getNemValue_M)))
+(define (check_N n)
+  (if (> n m)
+    (printf "--> n ::  ~a \n" n)
+    (getNemValue_N)))
+(define (getNemValue_M)
+  (display "ERROR :: Input m that is > 100: ")
+  (set! m (read))
+  (check_M m))
+(define (getNemValue_N)
+  (display "ERROR :: Input N that is > m: ")
+  (set! n (read))
+  (check_N n))
+
+
+; Отримання соток
+(define (getHundreds full_number)
+  (floor (/ full_number 100)))
+; Отримання десяток
+(define (getTens full_number hundreds)
+  (floor (/ (- full_number (* hundreds 100)) 10)))
+; Отримання єдиниць
+(define (getNums full_number hundreds tens)
+  (- (- full_number (* hundreds 100)) (* tens 10)))
+; Перевірка на те чи усі значення цифри різні. 1 це так. -1 це ні
+(define (checkNumberOnDifference hundreds tens nums)
+  (if (or (or (equal? hundreds tens) (equal? hundreds nums)) (equal? tens nums))
+    -1 
+    1))
+; Перевірка на те чи усі значення є непарними. 1 це так. -1 це ні
+(define (checkNumberOdd hundreds tens nums)
+  (if (and (and (odd? hundreds) (odd? tens)) (odd? nums))
+    1
+    -1))
+; Продовження перевірки чисел
+(define (continue number n)
+  ; Якщо поточне число дорівнює значенню n, 
+  ; відображаємо кількість чисел та закінчуємо обрахунки.
+  ; Якщо ні, продовжуємо чисел.
+  (if (equal? number n)
+    (printf "--> Amount of numbers between ~a and ~a , that have odd numbers and/or different numbers  ::  ~a \n" m n amount)
+    (check number)))
+
+
+
+(define (check number)
+  ; Отримання соток
+  (define hundreds (getHundreds number))
+  ; Отримання десяток
+  (define tens (getTens number hundreds))
+  ; Отримання єдиниць
+  (define nums (getNums number hundreds tens))
+  ; Відображення отриманого результату
+  ; (printf "\n--> hundreds ::  ~a \n--> tens ::  ~a \n--> nums ::  ~a \n" hundreds tens nums)
+
+  ; Перевірка на те чи усі значення цифри різні. 1 це так. -1 це ні
+  (define isDifferent (checkNumberOnDifference hundreds tens nums))
+  ; Перевірка на те чи усі значення є непарними. 1 це так. -1 це ні
+  (define isOdd (checkNumberOdd hundreds tens nums))
+  ; (printf "--> isDifferent ::  ~a \n" isDifferent)
+  ; (printf "--> isOdd ::  ~a \n" isOdd)
+
+  ; У разі якщо хоча б одне значення 1 то збільшуємо лічільник. Інакше залишаємо без змін
+  (if (or (equal? isDifferent 1) (equal? isOdd 1))
+    (set! amount (+ amount 1))
+    (set! amount amount))
+  ; Продовжуємо перевірку але вже з наступним числом
+  (continue (+ number 1) n))
+  
+
+
+; Ввод значення m
+(display "Input m that is > 100: ")
+(set! m (read))
+(check_M m)
+; Ввод значення n
+(display "Input n that is > m: ")
+(set! n (read))
+(check_N n)
+; Перевірка кожного значення
+(check m)
+            </code>
+        </pre>
+      </div>
+      <div id="result" class="block">
+        <h3 class="block__title">Скріншот роботи та результату</h3>
+        <p class="block__subtitle">Задача 1</p>
+        <span id="result_img_2_1" class="block__result_img"></span>
+
+        <p class="block__subtitle">Задача 2</p>
+        <p class="block__text">
+          Результат роботи правильний, оскільки в діапазоні 4 числа, з яких: 2
+          числа з різними цифрами (108, 109) та 1 число з цифрами які непарні
+          (111). Тому сумма 3
+        </p>
+        <span id="result_img_2_2" class="block__result_img"></span>
+      </div>
+      <div id="conclusion" class="block">
+        <h3 class="block__title">Висновок</h3>
+        <p class="block__text">
+          Під час виконання даної лабоаторної роботи, було ознайомлено з темою
+          "Рекурентні співвідношення для тригонометричних, експоненціальних
+          функцій та ланцюгові дроби".
+        </p>
+        <p class="block__text">
+          Окім того, розвинувши функцію у ряд Тейлора було обчислено значення
+          функції у завдання 1. Також, виристовуючи знаення що ввів користувач,
+          та рекурсію. було знайдено кількість елементів, які складаються з
+          непарних цифр, або мають різні цифри у завдання 2.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="links">
+        <h3 class="name link">
+          <a href="index.html">Functional Programming</a>
+        </h3>
+        <ul class="list">
+          <li class="item link"><a href="index.html">Головна</a></li>
+          <li class="item link"><a href="labs.html">Лабораторні</a></li>
+        </ul>
+      </div>
+      <div class="contacts">
+        <p class="contact">Куценко Микита Олександрович</p>
+        <a href="mailto:nikita.kutsenko2@gmail.com" class="link"
+          >nikita.kutsenko2@gmail.com</a
+        >
+        <a href="tel:+380984092300" class="link">+38 (098) 409-23-00</a>
+      </div>
+    </footer>
+  </body>
+</html>
