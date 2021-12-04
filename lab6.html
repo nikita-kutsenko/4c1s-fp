@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>ФП | 6 Лабораторна Робота | Куценко Микита Олександрович</title>
+  </head>
+  <body id="main">
+    <header class="header">
+      <h1 class="name link"><a href="index.html">Functional Programming</a></h1>
+      <ul class="list">
+        <li class="item link"><a href="index.html">Головна</a></li>
+        <li class="item link"><a href="labs.html">Лабораторні</a></li>
+      </ul>
+    </header>
+    <section class="lab">
+      <h2 class="title">Лабораторна робота 6</h2>
+      <h3 class="theme">
+        "Обробка структур типу векторів і матриць, стеків та черг мовами
+        функціонального програмування"
+      </h3>
+      <div class="block">
+        <h3 class="block__title">Зміст</h3>
+        <ol class="block__list">
+          <li class="block__item">
+            <a href="#goal" class="link">Мета роботи</a>
+          </li>
+          <li class="block__item">
+            <a href="#condition" class="link">Умова завдання</a>
+          </li>
+          <li class="block__item">
+            <a href="#ide" class="link"
+              >Обґрунтування вибору мови функціонального програмування та IDE</a
+            >
+          </li>
+          <li class="block__item"><a href="#code" class="link">Код</a></li>
+          <li class="block__item">
+            <a href="#result" class="link">Скріншот роботи та результату</a>
+          </li>
+          <li class="block__item">
+            <a href="#conclusion" class="link">Висновок</a>
+          </li>
+        </ol>
+      </div>
+      <div id="goal" class="block">
+        <h3 class="block__title">Мета роботи</h3>
+        <p class="block__text">
+          Опанувати теоретичні основи обробки структур типу векторів і матриць,
+          стеків та черг мовами функціонального програмування та розробити
+          програми їх реалізації
+        </p>
+      </div>
+      <div id="condition" class="block">
+        <h3 class="block__title">Умова завдання</h3>
+        <p class="block__text"></p>
+        <ul class="block__list">
+          <!-- <span class="block__condition_var">10-2 </span> -->
+          <li class="block__item">
+            Написати процедури, що обробляють вектори відповідно до правил
+            векторної алгебри
+          </li>
+          <li class="block__item">
+            Написати процедури, що обробляють черги відповідно до правил FIFO
+            (перший прийшов — перший пішов) та стеків за правилами LIFO
+            (останній прийшов - перший пішов)
+          </li>
+        </ul>
+        <p class="block__text">Варіант: 13</p>
+        <ol class="block__condition_list">
+          <!-- &nbsp; -->
+          <!-- 
+                <span class="block__condition_var">EXAMPLE</span>
+             -->
+          <li class="block__condition_item">
+            Створити два вектори чисел. Визначити та вивести на екран скалярний
+            добуток двох векторів та косинус кута між ними.
+          </li>
+          <li class="block__condition_item">
+            Створити чергу елементами якої є назви задач та їх пріоритети.
+            Створити нову чергу, в якій задачі упорядковані за пріоритетами.
+            Вивести на екран відсортовану чергу.
+          </li>
+        </ol>
+      </div>
+      <div id="ide" class="block">
+        <h3 class="block__title">
+          Обґрунтування вибору мови функціонального програмування та IDE
+        </h3>
+        <p class="block__text">
+          Для виконання даної лабоаторної роботи, в якості мови програмування
+          було обрано Racket, оскільки ця мова є мовою функціональною та
+          належить сімейству Lisp / Scheme. Середовищем розробки було обрано
+          супутній редактор - DrRacket.
+        </p>
+      </div>
+      <div id="code" class="block">
+        <h3 class="block__title">Код</h3>
+        <p class="block__text">Задача 1</p>
+        <pre>
+            <code>
+#lang racket
+
+; скалярное произведение двух векторов = x1*x2 + y1*y2 + z1*z2
+(define (scalar-multiply vec1 vec2)
+  ; проход по индексам векторов
+  (define (iter-multiply index sum)
+    (cond ((< index (vector-length vec1)) ; пока индекс меньше длины вектора
+            ; переход к следующему индексу
+            (iter-multiply (+ index 1)
+                          (+ sum (* (vector-ref vec1 index) (vector-ref vec2 index))))) ; добавление к сумме произведения соответствующих элементов векторов
+          (else ; иначе элементы закончились
+            sum)) ; вернуть скалярное произведение
+    )
+  (iter-multiply 0 0.0))
+
+
+
+; расчет длины вектора
+; длина вектора = sqrt(a^2 + b^2 + c^2)
+(define (find-vector-length vec)
+  ; проход по всем элементам вектора
+  (define (iter-length index squares-sum)
+    (cond ((< index (vector-length vec)) ; пока есть элементы
+            ; переход к следующему элементу и добавление к сумме квадратов элемент^2
+            (iter-length (+ index 1) (+ squares-sum (expt (vector-ref vec index) 2))))
+          (else ; иначе элементы закончились
+            (sqrt squares-sum)))) ; возвращение квадратного корня из суммы квадратов
+  
+  (iter-length 0 0.0))
+
+
+
+; расчет косинуса угла между векторами
+(define (find-cos-vectors vec1 vec2 scalar)
+  ; cos = скалярное произведение разделить на произведение длин векторов
+  (define length1 (find-vector-length vec1)) ; длина вектора 1
+  (define length2 (find-vector-length vec2)) ; длина вектора 2
+  (/ scalar (* length1 length2))) ; возвращение результата деления
+
+
+
+
+; два вектора должны быть одинаковой длины
+(define vector-1 (vector 13 25 6))
+(define vector-2 (vector 8 16 7))
+(printf "--> Вектор 1 :: ~a \n" vector-1)
+(printf "--> Вектор 2 :: ~a \n" vector-2)
+
+; расчет скалярного произведения 
+(define scalar-mul (scalar-multiply vector-1 vector-2))
+(printf "\n--> Скалярное произведение :: ~a \n" scalar-mul)
+
+; расчет cos между векторами 
+(printf "\n--> cos между векторами :: ~a \n" (find-cos-vectors vector-1 vector-2 scalar-mul))
+            </code>
+        </pre>
+        <p class="block__text">Задача 2</p>
+        <pre>
+            <code>
+; представление списка в виде пары: (голова, конец)
+; получение указателя на начало очереди
+(define (head-ptr queue)
+(car queue))
+
+; получение указателя на конец очереди
+(define (tail-ptr queue)
+(cdr queue))
+
+; изменение указателя начала очереди
+(define (set-head-ptr! queue elem)
+(set-car! queue elem))
+
+; изменение указателя конца очереди
+(define (set-tail-ptr! queue elem)
+(set-cdr! queue elem))
+
+; очередь пустая, если указатель на начало пустой
+(define (empty-queue? queue)
+(null? (head-ptr queue)))
+
+; создание очереди - пустой
+(define (create-queue)
+(cons (list) (list)))
+
+; добавление элемента в конец очереди
+(define (push-queue! queue elem)
+(let ((new-pair (cons elem (list)))) ; новая пара: элемент, пустой список
+  (cond ((empty-queue? queue) ; если очередь пустая, то
+          (set-head-ptr! queue new-pair) ; и начало очереди
+          (set-tail-ptr! queue new-pair)) ; и конец указывают на новый элемент
+        (else ; в противном случае
+          (set-cdr! (tail-ptr queue) new-pair) ; изменить последнюю пару очереди
+          (set-tail-ptr! queue new-pair) ; перенаправление хвостового указателя на последний элемент
+          ))))
+
+
+
+
+; временная переменная
+(define temp 'cons)
+
+; сортировка значений в порядке возрастания
+(define (sort-queue queue)
+; проход по очереди i
+(define (iter-queue elems1)
+  ; проход по очереди j
+  (define (inner-iter elems2)
+    (cond ((not (null? elems2)) ; пока есть элементы
+            (cond ((> (cdr (car elems1)) (cdr (car elems2))) ; если i элемент больше j
+                  (set! temp (car elems1)) ; то выполняется замена
+                  (set-car! elems1 (car elems2))
+                  (set-car! elems2 temp))
+                  )
+            (inner-iter (cdr elems2))))) ; переход к следующему элементу внутренней рекурсии
+  
+  (cond ((not (null? elems1)) ; пока есть элементы
+          (inner-iter (cdr elems1)) ; вызов внутренней рекурсии со следующего элемента
+          (iter-queue (cdr elems1))) ; переход к следующему элементу внешней рекурсии
+        (else
+          queue))) ; когда элементы закончились - вернуть отсортированную очередь
+  
+(iter-queue (head-ptr queue)))
+
+
+
+
+; создание очереди и добавление названия задач с приоритетами
+(define queue-nbrs (create-queue))
+(push-queue! queue-nbrs (cons "Task" 6))
+(push-queue! queue-nbrs (cons "Task" 5))
+(push-queue! queue-nbrs (cons "Task" 8))
+(push-queue! queue-nbrs (cons "Task" 3))
+(push-queue! queue-nbrs (cons "Task" 2))
+(push-queue! queue-nbrs (cons "Task" 1))
+
+
+; вывод исходной очереди
+(display "--> Исходная очередь :: ")
+(display (head-ptr queue-nbrs)) (newline) (newline)
+
+
+; сортировка очереди
+(define sorted-nbrs (sort-queue queue-nbrs))
+(display "--> Отсортированная очередь :: ")
+(display (head-ptr sorted-nbrs))
+            </code>
+        </pre>
+      </div>
+      <div id="result" class="block">
+        <h3 class="block__title">Скріншот роботи та результату</h3>
+        <p class="block__subtitle">Задача 1</p>
+        <p class="block__text">
+          Результати роботи програми є коректним <br /><br />
+
+          Було створено два вектори значення яких було задано власноруч.
+          <br /><br />
+
+          Далі було знайдено скалярний добуток двох векторів завдярки
+          перемноженню значень двох вектоірв по кожному індексі та сумуючи
+          отримані значення за формулою x1*x2 + y1*y2 + z1*z2.<br /><br />
+
+          Після чого було отримано косинус кута між ними, завдяки діленню
+          скалярного добутка на множення довжиен вектоірв. Довжина вектора
+          обраховувался за формулою sqrt(a^2 + b^2 + c^2)
+        </p>
+        <span id="result_img_6_1" class="block__result_img"></span>
+        <span id="result_img_6_1_calc_1" class="block__result_img"></span>
+
+        <p class="block__subtitle">Задача 2</p>
+        <!-- <p class="block__text">
+          Результати роботи програми є коректним <br /><br />
+
+          Використовуючи рекурсію було створено список з комплексними числами в
+          алгебраїчній формі a + ib. <br /><br />
+
+          Використовуючи рекурсію було переведно список з комплексними числами в
+          алгебраїчній формі у новий список у полярний вид.<br /><br />
+
+          Далі відображаємо значення з якими працюємо, та для кожного значення у
+          алгебраїчній формі відображаємо модуль та аргументи у полярній
+          формі.<br /><br />
+
+          Після чого виконав перемноження двох комплексних чисел, де для двох
+          чисел створив пари з множення модулей чисел та з множення аргументів
+          цих чисел.<br /><br />
+
+          У результаті чого отримали новий список.
+        </p> -->
+        <p class="block__text">
+          Результати роботи програми є коректним <br /><br />
+
+          Перш за все було створено пусту та далі у чергу було додано елементи у
+          вигляді списків. значення яких було задано власноруч.
+          <br /><br />
+
+          Додавання елементу до черги працює наступним чиним що ми до кінця
+          черги додаємо новий пару змінючи вказівник на останній елемент.
+          <br /><br />
+
+          Після чого відображаємо отриману заповнену чергу.
+          <br /><br />
+
+          Наступним кроком переходимо до сортсування черги. Сортування
+          відбувається наступним чином, що ми через рекурсію перевіряємо
+          поточний елемент з іншими та у разі якщо поточний елемент більше за
+          наступний елемнт то ми виконуємо заміну. Далі якщо елементи та
+          сортування закінчилися, повертаємо нову відсортовану чергу та
+          відображаємо її.
+        </p>
+        <span id="result_img_6_2" class="block__result_img"></span>
+      </div>
+      <div id="conclusion" class="block">
+        <h3 class="block__title">Висновок</h3>
+        <p class="block__text">
+          Під час виконання даної лабоаторної роботи, було ознайомлено з темою
+          "Обробка структур типу векторів і матриць, стеків та черг мовами
+          функціонального програмування".
+        </p>
+        <p class="block__text">
+          Окрім того, було опановано теоретичні основи обробки структур типу
+          векторів і матриць, стеків та черг мовами функціонального
+          програмування та розроблено програми їх реалізації.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="links">
+        <h3 class="name link">
+          <a href="index.html">Functional Programming</a>
+        </h3>
+        <ul class="list">
+          <li class="item link"><a href="index.html">Головна</a></li>
+          <li class="item link"><a href="labs.html">Лабораторні</a></li>
+        </ul>
+      </div>
+      <div class="contacts">
+        <p class="contact">Куценко Микита Олександрович</p>
+        <a href="mailto:nikita.kutsenko2@gmail.com" class="link"
+          >nikita.kutsenko2@gmail.com</a
+        >
+        <a href="tel:+380984092300" class="link">+38 (098) 409-23-00</a>
+      </div>
+    </footer>
+  </body>
+</html>
