@@ -8,10 +8,6 @@
 (define time_back_140_1 0)
 (define time_back_140_2 0)
 (define waiting_time_140 0)
-(define mean_time_80 0)
-(define mean_time_140 0)
-(define flights_80 0)
-(define flights_140 0)
 
 
 
@@ -56,40 +52,30 @@
     ;  time of plane 80_1 comming back
     [(equal? time time_back_80_1)
       (set! time_back_80_1 0)
-      (set! mean_time_80 (+ mean_time_80 180))
-      (set! flights_80 (+ flights_80 1))
       (printf ":: ~a mins ---> ARRIVED :: plane 80_1 ~a \n" time time_back_80_1)
       (append (list "80_1") open_planes)]
      
     ;  time of plane 80_2 comming back
     [(equal? time time_back_80_2) 
       (set! time_back_80_2 0)
-      (set! mean_time_80 (+ mean_time_80 180))
-      (set! flights_80 (+ flights_80 1))
       (printf ":: ~a mins ---> ARRIVED :: plane 80_2 ~a \n" time time_back_80_2)
       (append (list "80_2") open_planes)]
 
     ;  time of plane 80_3 comming back
     [(equal? time time_back_80_3)
       (set! time_back_80_3 0)
-      (set! mean_time_80 (+ mean_time_80 180))
-      (set! flights_80 (+ flights_80 1))
       (printf ":: ~a mins ---> ARRIVED :: plane 80_3 ~a \n" time time_back_80_3)
       (append (list "80_3") open_planes)]
 
     ;  time of plane 140_1 comming back
     [(equal? time time_back_140_1)
       (set! time_back_140_1 0)
-      (set! mean_time_140 (+ mean_time_140 180))
-      (set! flights_140 (+ flights_140 1))
       (printf ":: ~a mins ---> ARRIVED :: plane 140_1 ~a \n" time time_back_140_1)
       (append (list "140_1") open_planes)]
 
     ;  time of plane 140_2 comming back
     [(equal? time time_back_140_2)
       (set! time_back_140_2 0)
-      (set! mean_time_140 (+ mean_time_140 180))
-      (set! flights_140 (+ flights_140 1))
       (printf ":: ~a mins ---> ARRIVED :: plane 140_2 ~a \n" time time_back_140_2)
       (append (list "140_2") open_planes)]
 
@@ -98,11 +84,7 @@
 
 
 (define (finish)
-  (let (
-      [res_mean_load_80 (exact->inexact (/ 360 mean_time_80))]
-      [res_mean_load_140 (exact->inexact (/ 360 mean_time_140))])
-    ( (printf "\n--> mean load 80 planes ~a\n" res_mean_load_80)
-      (printf "--> mean load 140 planes ~a\n\n" res_mean_load_140)))) 
+  (display "finish"))
 
 
 

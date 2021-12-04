@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>ФП | 4 Лабораторна Робота | Куценко Микита Олександрович</title>
+  </head>
+  <body id="main">
+    <header class="header">
+      <h1 class="name link"><a href="index.html">Functional Programming</a></h1>
+      <ul class="list">
+        <li class="item link"><a href="index.html">Головна</a></li>
+        <li class="item link"><a href="labs.html">Лабораторні</a></li>
+      </ul>
+    </header>
+    <section class="lab">
+      <h2 class="title">Лабораторна робота 4</h2>
+      <h3 class="theme">
+        "Програмування списків мовами функціонального програмування"
+      </h3>
+      <div class="block">
+        <h3 class="block__title">Зміст</h3>
+        <ol class="block__list">
+          <li class="block__item">
+            <a href="#goal" class="link">Мета роботи</a>
+          </li>
+          <li class="block__item">
+            <a href="#condition" class="link">Умова завдання</a>
+          </li>
+          <li class="block__item">
+            <a href="#ide" class="link"
+              >Обґрунтування вибору мови функціонального програмування та IDE</a
+            >
+          </li>
+          <li class="block__item"><a href="#code" class="link">Код</a></li>
+          <li class="block__item">
+            <a href="#result" class="link">Скріншот роботи та результату</a>
+          </li>
+          <li class="block__item">
+            <a href="#conclusion" class="link">Висновок</a>
+          </li>
+        </ol>
+      </div>
+      <div id="goal" class="block">
+        <h3 class="block__title">Мета роботи</h3>
+        <p class="block__text">
+          Опанувати теоретичні основи використання списків функціональними
+          мовами та розробити програми обробки списків.
+        </p>
+      </div>
+      <div id="condition" class="block">
+        <h3 class="block__title">Умова завдання</h3>
+        <p class="block__text"></p>
+        <ul class="block__list">
+          <!-- <span class="block__condition_var">10-2 </span> -->
+          <li class="block__item">
+            Написати процедури, що створюють список, модифікують його,
+            здійснюють пошук та упорядкування значень
+          </li>
+          <li class="block__item">
+            Написати процедури, що моделюють бізнес-процеси в компаніях та за
+            допомогою різних сервісів. Бізнес-процеси подати у вигляді списків
+          </li>
+        </ul>
+        <p class="block__text">Варіант: 13</p>
+        <ol class="block__condition_list">
+          <!-- &nbsp; -->
+          <!-- 
+                <span class="block__condition_var">EXAMPLE</span>
+             -->
+          <li class="block__condition_item">
+            Створити список п’ятикутних чисел, задавши їх кількість. П’ятикутні
+            числа складають послідовність
+            <span class="block__condition_var"
+              >1,&nbsp;5,&nbsp;12,&nbsp;22,&nbsp;35,&nbsp;51,…</span
+            ><span class="block__condition_var"
+              >Pn&nbsp;=&nbsp;1/2×n×(3×n&nbsp;−&nbsp;1)</span
+            >. Вивести створений список. Виконати такі операції: <br />a)
+            Замінити значення елементів на парних позиціях на їх подвоєне
+            значення; <br />b) Знайти середнє арифметичне чисел списку <br />c)
+            Поділити список на два рівних по кількості елементів. Значення
+            останнього елемента першого списку та першого елемента другого
+            списку зробити однаковими.
+          </li>
+          <li class="block__condition_item">
+            Написати код, що моделює процес роботи вантажного аеропорту. Вантажі
+            прибувають для відправлення в аеропорт у контейнерах із
+            інтенсивністю два контейнери за 1 хвилину. Вантажний аеропорт не має
+            фіксованого розкладу, а літаки відправляються по мірі їх повного
+            завантаження. У розпорядженні є два типи літаків для перевезення
+            вантажів: три літаки з вантажопідіймальністю 80 контейнерів і два
+            літаки з вантажопідіймальністю 140 контейнерів. Час польоту кожного
+            літака в середньому 3 години. Керуючий аеропортом намагається
+            якнайчастіше використовувати літаки меншої вантажопідіймальності.
+            Літаки, що піднімають 140 контейнерів, використовуються тільки тоді,
+            коли інших немає в наявності. Припускається, що часом вантаження
+            можна не враховувати. Визначити середній час очікування контейнерів
+            із вантажами та середнє завантаження літаків обох типів. Вивести на
+            екран сценарій роботи аеропорту.
+          </li>
+        </ol>
+      </div>
+      <div id="ide" class="block">
+        <h3 class="block__title">
+          Обґрунтування вибору мови функціонального програмування та IDE
+        </h3>
+        <p class="block__text">
+          Для виконання даної лабоаторної роботи, в якості мови програмування
+          було обрано Racket, оскільки ця мова є мовою функціональною та
+          належить сімейству Lisp / Scheme. Середовищем розробки було обрано
+          супутній редактор - DrRacket.
+        </p>
+      </div>
+      <div id="code" class="block">
+        <h3 class="block__title">Код</h3>
+        <p class="block__text">Задача 1</p>
+        <pre>
+            <code>
+#lang racket
+
+; Отримання п’ятикутного числа
+(define (get_item n) (* 0.5 n (* 3 (- n 1))))
+; Створення списку з п’ятикутних чисел
+(define (create_items_list items_list items_length n)
+  (define item (get_item n))
+  (printf "--> generating next number :: value ~a :: index ~a \n" item (- n 2))
+  (if (<= n items_length)
+    (create_items_list (list (append items_list item)) items_length (+ n 1))
+    (flatten items_list)))
+
+
+; Перевірка індексу поточного значення. якщо парний - збільшуємо значення в два рази. інакше залишаємо тим самим
+(define (check_item_value example_list new_list items_length n)
+  (if (odd? n)
+    (* 2 (list-ref example_list n))
+    (list-ref example_list n)))
+; Перевірка індексу поточного значення. якщо парний - збільшуємо значення в два рази. інакше залишаємо тим самим
+(define (change_even_values example_list new_list items_length n)
+  (if (< n items_length)
+    (let ([item (check_item_value example_list new_list items_length n)])
+      (printf "--> checking with index ~a :: item value ~a\n" n item)
+      (change_even_values example_list (list (append new_list item)) items_length (+ n 1))
+    )
+    (flatten new_list)))
+
+
+; Знаходження середнього арифметичного чисел списку
+(define (get_average list)
+  (/ (foldr (lambda (x y) (+ x y)) 0 list) 
+      (length list)))
+
+
+; Отримання першого списку
+(define (get_list1 list len) (list-set (list-tail list len) 0 1000))
+; Отримання другого списку
+(define (get_list2 list len) (list-set (take list len) (- len 1) 1000))
+; Отримання відокремеленизх списків
+(define (split_lists list len)
+  (let (
+    [list1 (get_list1 list len)]
+    [list2 (get_list2 list len)]
+  )
+  (printf ":: first separeated list ~a :: with length ~a\n" list1 len)
+  (printf ":: second separeated list ~a :: with length ~a\n\n" list2 len)))
+
+
+
+; Головна функція
+(define (init items_length)
+  (displayln ":::: Результати ::::\n")
+
+  (define items (create_items_list (list 1 5 12 22 35 51) items_length 7))
+  (printf ":: items ::  ~a \n\n" items)
+
+  (define items_changed_even (change_even_values items (list) items_length 0))
+  (printf ":: items with changed even ::  ~a \n\n" items_changed_even)
+
+  (define splited_lists (split_lists items_changed_even (/ items_length 2)))
+
+  (define items_average (get_average items_changed_even))
+  (printf ":: items average  ::  ~a \n\n" items_average)
+)
+
+
+
+(init 10)
+            </code>
+        </pre>
+        <p class="block__text">Задача 2</p>
+        <pre>
+            <code>
+#lang racket
+
+(define time 10)
+(define containers 20)
+(define time_back_80_1 0)
+(define time_back_80_2 0)
+(define time_back_80_3 0)
+(define time_back_140_1 0)
+(define time_back_140_2 0)
+(define waiting_time_140 0)
+(define mean_time_80 0)
+(define mean_time_140 0)
+(define flights_80 0)
+(define flights_140 0)
+
+
+
+
+
+(define (set_plane_time_back plane)
+  ; check conditions 
+  (cond 
+    ;  timer for plane 80_1
+    [(equal? plane "80_1")
+      (set! time_back_80_1 (+ time 180))
+      (printf ":: ~a mins ---> LEFT :: plane 80_1 || ARRIVES at :: ~a \n" time time_back_80_1)]
+      
+    ;  timer for plane 80_2
+    [(equal? plane "80_2")
+      (set! time_back_80_2 (+ time 180))
+      (printf ":: ~a mins ---> LEFT :: plane 80_2 || ARRIVES at :: ~a \n" time time_back_80_2)]
+
+    ;  timer for plane 80_3
+    [(equal? plane "80_3")
+      (set! time_back_80_3 (+ time 180))
+      (printf ":: ~a mins ---> LEFT :: plane 80_3 || ARRIVES at :: ~a \n" time time_back_80_3)]
+
+    ;  timer for plane 140_1
+    [(equal? plane "140_1")
+      (set! time_back_140_1 (+ time 180))
+      (printf ":: ~a mins ---> LEFT :: plane 140_1 || ARRIVES at :: ~a \n" time time_back_140_1)]
+
+    ;  timer for plane 140_2
+    [(equal? plane "140_2")
+      (set! time_back_140_2 (+ time 180))
+      (printf ":: ~a mins ---> LEFT :: plane 140_2 || ARRIVES at :: ~a \n" time time_back_140_2)]
+  ))
+
+
+
+
+
+(define (set_plane_is_back open_planes)
+  ; check conditions 
+  (cond 
+    ;  time of plane 80_1 comming back
+    [(equal? time time_back_80_1)
+      (set! time_back_80_1 0)
+      (set! mean_time_80 (+ mean_time_80 180))
+      (set! flights_80 (+ flights_80 1))
+      (printf ":: ~a mins ---> ARRIVED :: plane 80_1 ~a \n" time time_back_80_1)
+      (append (list "80_1") open_planes)]
+      
+    ;  time of plane 80_2 comming back
+    [(equal? time time_back_80_2) 
+      (set! time_back_80_2 0)
+      (set! mean_time_80 (+ mean_time_80 180))
+      (set! flights_80 (+ flights_80 1))
+      (printf ":: ~a mins ---> ARRIVED :: plane 80_2 ~a \n" time time_back_80_2)
+      (append (list "80_2") open_planes)]
+
+    ;  time of plane 80_3 comming back
+    [(equal? time time_back_80_3)
+      (set! time_back_80_3 0)
+      (set! mean_time_80 (+ mean_time_80 180))
+      (set! flights_80 (+ flights_80 1))
+      (printf ":: ~a mins ---> ARRIVED :: plane 80_3 ~a \n" time time_back_80_3)
+      (append (list "80_3") open_planes)]
+
+    ;  time of plane 140_1 comming back
+    [(equal? time time_back_140_1)
+      (set! time_back_140_1 0)
+      (set! mean_time_140 (+ mean_time_140 180))
+      (set! flights_140 (+ flights_140 1))
+      (printf ":: ~a mins ---> ARRIVED :: plane 140_1 ~a \n" time time_back_140_1)
+      (append (list "140_1") open_planes)]
+
+    ;  time of plane 140_2 comming back
+    [(equal? time time_back_140_2)
+      (set! time_back_140_2 0)
+      (set! mean_time_140 (+ mean_time_140 180))
+      (set! flights_140 (+ flights_140 1))
+      (printf ":: ~a mins ---> ARRIVED :: plane 140_2 ~a \n" time time_back_140_2)
+      (append (list "140_2") open_planes)]
+
+    [else open_planes]))
+
+
+
+(define (finish)
+  (let (
+      [res_mean_load_80 (exact->inexact (/ 360 mean_time_80))]
+      [res_mean_load_140 (exact->inexact (/ 360 mean_time_140))])
+    ( (printf "\n--> mean load 80 planes ~a\n" res_mean_load_80)
+      (printf "--> mean load 140 planes ~a\n\n" res_mean_load_140)))) 
+
+
+
+
+
+
+(define (next pre_open_planes)
+  (let ([open_planes (set_plane_is_back pre_open_planes)])
+    (printf "\n--> open planes ~a\n" open_planes)
+    ; (printf "\n--> TIME ~a\n" time)
+    ; check conditions 
+    (cond 
+      ; containers == 80 && one of 80 planes' is open 
+      [(and (equal? containers 80) (or (member "80_1" open_planes) (member "80_2" open_planes) (member "80_3" open_planes)))
+        ((set! containers 0)
+        (set_plane_time_back (car open_planes))
+        ; (printf ":: ~a mins :: decreased containers ~a :: used plane ~a :: rest of planes ~a\n" time containers (car open_planes) (rest open_planes))
+        (next (rest open_planes)))]
+
+      ; containers == 140 && one of 140 planes' is open 
+      [(and (equal? containers 140) (or (member "140_1" open_planes) (member "140_2" open_planes)))
+        ((set! containers 0)
+        (set_plane_time_back (car open_planes))
+        ; (printf ":: ~a mins :: decreased containers ~a :: used plane ~a :: rest of planes ~a\n" time containers (car open_planes) (rest open_planes))
+        (next (rest open_planes)))]
+
+      ; Finishhing the program
+      [(and (> containers 110) (> time 360)) (finish)]
+
+      ; increase time and amount of containers for open planes
+      [(and (<= containers 140) (< time 370))
+        (
+          ; (printf "\n--> containers <=140 :: ~a  && time < 370 :: ~a\n" containers time)
+          (set! containers (+ containers 20))
+          (set! time (+ time 10))
+        ;  (if (and (not (or (member "80_1" open_planes) (member "80_2" open_planes) (member "80_3" open_planes))) (or (member "140_1" open_planes) (member "140_2" open_planes)) (> containers 60))
+        ;    (printf "~a " #t)
+        ;    (printf "~a " #f))
+          (printf ":: ~a mins :: increased cdontainers ~a\n" time containers)
+          (next open_planes)
+          )]
+    )))
+
+
+
+
+
+
+
+(next (list "80_1" "80_2" "80_3" "140_1" "140_2"))
+            </code>
+        </pre>
+      </div>
+      <div id="result" class="block">
+        <h3 class="block__title">Скріншот роботи та результату</h3>
+        <p class="block__subtitle">Задача 1</p>
+        <p class="block__text">
+          Результат виконання програми є коректним. Використовуючи задану
+          формулу було згенеровано наступні П’ятикутні значення. <br /><br />
+          Серед цих значень, було знайдено ті значення. що стоять на парному
+          індексі та збільшено їх значення в два рази. <br /><br />
+          Отриманий новий список було розбито на два нові списки, де:
+          <br />а) перший список складається з перших елементів головного списку
+          та перший елмент має значення 1000 <br />б) другоий список складається
+          з останніх елементів головного списку та останній елемнет має значення
+          1000 <br /><br />
+          В кінці булу пораховано середнє значення з усіх значень другого
+          списку.
+        </p>
+        <span id="result_img_4_1" class="block__result_img"></span>
+
+        <p class="block__subtitle">Задача 2</p>
+        <p class="block__text">
+          Результат виконання програми є коректним. <br />
+          <br />
+          За шаг у часі було обрано 10 хвилин. При кожному кроці лічильник
+          контейнерів збільшуєтсья на 20, та лічильник часу на 10. <br />
+          <br />
+
+          Далі іде перевірка на те, що якщо зібралося 80 контенерів або 140
+          контейнерів та є один вільний літак із 80-х або 140-х, тоді:
+
+          <br />1) обраний вільний літак наповнюється контенерами; <br />2)
+          лічильник контенерів перезаписується на 0; <br />3) встановлюється час
+          прибуття обраного літаку. Цей час буде перевірятися при кожному кроці
+          та якщо поточний час збігається з часом прибуття якогось літаку, то це
+          означає шо літак прилетів та він є вільним; <br />4) якшо якийсь літак
+          повернувся відображається повідомлення про те що літак повернувся;
+
+          <br />
+          <br />Далі через рекурсію іде виклик поточної функції для повтору
+          круга.
+
+          <br />
+          <br />Рекурсія закінчується тоді коли пройшло 3 години. Тоді
+          відображається завантаження двох типів літаків через ділення
+          закального часу обрахунків на кількість літаків з кожного типу.
+        </p>
+        <span id="result_img_4_2_1" class="block__result_img"></span>
+        <span id="result_img_4_2_2" class="block__result_img"></span>
+        <span id="result_img_4_2_3" class="block__result_img"></span>
+      </div>
+      <div id="conclusion" class="block">
+        <h3 class="block__title">Висновок</h3>
+        <p class="block__text">
+          Під час виконання даної лабоаторної роботи, було ознайомлено з темою
+          "Програмування списків мовами функціонального програмування".
+        </p>
+        <p class="block__text">
+          Окім того, було опановано теоретичні основи використання списків
+          функціональними мовами та розроблено програми обробки списків, де у
+          першому завданні опацьовував п’ятикутні значення та робили різні
+          манупуляції з ними, а у другому завданні розрообив план роботи та
+          навантаження літаків різних тпиів.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="links">
+        <h3 class="name link">
+          <a href="index.html">Functional Programming</a>
+        </h3>
+        <ul class="list">
+          <li class="item link"><a href="index.html">Головна</a></li>
+          <li class="item link"><a href="labs.html">Лабораторні</a></li>
+        </ul>
+      </div>
+      <div class="contacts">
+        <p class="contact">Куценко Микита Олександрович</p>
+        <a href="mailto:nikita.kutsenko2@gmail.com" class="link"
+          >nikita.kutsenko2@gmail.com</a
+        >
+        <a href="tel:+380984092300" class="link">+38 (098) 409-23-00</a>
+      </div>
+    </footer>
+  </body>
+</html>

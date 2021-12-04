@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>ФП | 5 Лабораторна Робота | Куценко Микита Олександрович</title>
+  </head>
+  <body id="main">
+    <header class="header">
+      <h1 class="name link"><a href="index.html">Functional Programming</a></h1>
+      <ul class="list">
+        <li class="item link"><a href="index.html">Головна</a></li>
+        <li class="item link"><a href="labs.html">Лабораторні</a></li>
+      </ul>
+    </header>
+    <section class="lab">
+      <h2 class="title">Лабораторна робота 5</h2>
+      <h3 class="theme">
+        "Обробка раціональних та комплексних чисел мовами функціонального
+        програмування"
+      </h3>
+      <div class="block">
+        <h3 class="block__title">Зміст</h3>
+        <ol class="block__list">
+          <li class="block__item">
+            <a href="#goal" class="link">Мета роботи</a>
+          </li>
+          <li class="block__item">
+            <a href="#condition" class="link">Умова завдання</a>
+          </li>
+          <li class="block__item">
+            <a href="#ide" class="link"
+              >Обґрунтування вибору мови функціонального програмування та IDE</a
+            >
+          </li>
+          <li class="block__item"><a href="#code" class="link">Код</a></li>
+          <li class="block__item">
+            <a href="#result" class="link">Скріншот роботи та результату</a>
+          </li>
+          <li class="block__item">
+            <a href="#conclusion" class="link">Висновок</a>
+          </li>
+        </ol>
+      </div>
+      <div id="goal" class="block">
+        <h3 class="block__title">Мета роботи</h3>
+        <p class="block__text">
+          Опанувати технологію абстракції даних в мовах функціонального
+          програмування. Реалізувати програму обробки раціональних та
+          комплексних чисел мовами функціонального програмування, представивши
+          ці числа конструкціями типу «пара»
+        </p>
+      </div>
+      <div id="condition" class="block">
+        <h3 class="block__title">Умова завдання</h3>
+        <p class="block__text"></p>
+        <ul class="block__list">
+          <!-- <span class="block__condition_var">10-2 </span> -->
+          <li class="block__item">
+            Написати процедури, що обробляють раціональні числа (працюють з
+            дробами), які подати у вигляді чисельника і знаменника.
+          </li>
+          <li class="block__item">
+            Написати процедури, що обробляють комплексні числа, які слід подати
+            в декартовому (алгебраїчному)
+            <span class="block__condition_var"
+              >(z&nbsp;=&nbsp;a&nbsp;+&nbsp;i×b)</span
+            >
+            та/або полярному
+            <span class="block__condition_var"
+              >(z=√(a^2+b^2)(cosφ&nbsp;+&nbsp;i×sin(φ)))</span
+            >
+            зображенні.
+          </li>
+        </ul>
+        <p class="block__text">Варіант: 13</p>
+        <ol class="block__condition_list">
+          <!-- &nbsp; -->
+          <!-- 
+                <span class="block__condition_var">EXAMPLE</span>
+             -->
+          <li class="block__condition_item">
+            Створити список з парною кількістю елементів, які є різними
+            раціональними числами у вигляді дробив. Для кожної пари елементів
+            списку виконати ділення дробив, результат якого записати у новий
+            список. Надрукувати список, утворений з результатів ділення кожної
+            пари. Для розв’язання задачі необхідно перевернути дріб, на який
+            ділимо, після чого здійснити множення дробив.
+          </li>
+          <li class="block__condition_item">
+            Створити список з парною кількістю елементів, які є комплексними
+            числами в алгебраїчній формі
+            <span class="block__condition_var">a&nbsp;+&nbsp;ib</span>. Створити
+            новий список, елементами якого є добутки кожної пари комплексних
+            чисел першого списку. Надрукувати новий список.
+          </li>
+        </ol>
+      </div>
+      <div id="ide" class="block">
+        <h3 class="block__title">
+          Обґрунтування вибору мови функціонального програмування та IDE
+        </h3>
+        <p class="block__text">
+          Для виконання даної лабоаторної роботи, в якості мови програмування
+          було обрано Racket, оскільки ця мова є мовою функціональною та
+          належить сімейству Lisp / Scheme. Середовищем розробки було обрано
+          супутній редактор - DrRacket.
+        </p>
+      </div>
+      <div id="code" class="block">
+        <h3 class="block__title">Код</h3>
+        <p class="block__text">Задача 1</p>
+        <pre>
+            <code>
+#lang racket
+
+
+
+; создание рационального числа
+(define (create-rat c z) (cons c z))
+
+
+
+; создание списка рациональных чисел
+; count - кол-во рациональных чисел
+(define (create-ratinal-list count)
+  (define (list-iter num denom i) ; итеративное создание пар(числитель, знаменатель)
+    (cond ((= i count) ; если счетчик равен кол-ву рац чисел
+            (create-rat num denom)) ; возвращается последнее рац число
+          (else
+            ; иначе присоединение к паре рац числа следующего числа
+            (cons (create-rat num denom) (list-iter (+ num 1) (+ denom 2) (+ i 1)))))
+    )
+  ; вызов рекурсивной функции с начальными аргументами
+  (list-iter 1 3 1))
+
+
+
+; поиск НОД для 2 чисел методом Евклида
+; НОД(a, b) = НОД(b,r) r = остаток от деления a и b
+(define (my-gcd a b)
+  (if (= b 0)
+      a
+      (my-gcd b (remainder a b))))
+; числитель рационального числа
+(define (numer x)
+  ; поиск НОД для сокращения дроби
+  (let (
+    (g (my-gcd (car x) (cdr x))))
+    (/ (car x) g)))
+; знаменатель рационального числа
+(define (denom x)
+  ; поиск НОД для сокращения дроби
+  (let (
+    (g (my-gcd (car x) (cdr x))))
+    (/ (cdr x) g)))
+
+
+
+; функция деления двух дробей
+(define (divide-two-rat rat-left rat-right)
+  (printf ":: получение числителя :: ( ~a  *  ~a ) / ( ~a  *  ~a )\n" (numer rat-left) (denom rat-right) (denom rat-left) (numer rat-right))
+  (create-rat (* (numer rat-left) (denom rat-right)) ; получение числителя
+              (* (denom rat-left) (numer rat-right)))) ; получение знаменателя
+
+; функция обработки деления пар рациональных чисел
+(define (division-rational list-rat)
+  (cond ((not (pair? (cddr list-rat))) ; когда последний элемент уже не пара, достигнут конец списка
+          (divide-two-rat (car list-rat) (cdr list-rat))) ; выполняется деление последних двух рац чисел
+        (else
+          (cons (divide-two-rat (car list-rat) (cadr list-rat)) ; деление двух рац чисел
+                (division-rational (cddr list-rat))))) ; переход к следующим двум рац числам
+  )
+
+
+
+; исходный список рациональных чисел (задаётся четное кол-во чисел)
+(define start-list (create-ratinal-list 6))
+(printf "--> Исходный список рац. чисел :: ~a \n" start-list)
+; создание нового списка в результате деления пар рац чисел исходного списка
+(define divide-list (division-rational start-list))
+(printf "--> Список в результате деления :: ~a \n" divide-list)
+            </code>
+        </pre>
+        <p class="block__text">Задача 2</p>
+        <pre>
+            <code>
+#lang racket
+
+
+
+; ---------- Алгебраическая форма
+; создать компл число (действ и мнимая части)
+(define (make-real-imag a b) (cons a b))
+
+; действительная часть компл числа
+(define (my-real-part z) (car z))
+
+; мнимая часть компл числа
+(define (my-imag-part z) (cdr z))
+
+; вывод компл число в алгебраической форме
+(define (print-real-imag z)
+  (printf "~a + ~ai" (my-real-part z) (my-imag-part z)))
+
+
+
+
+
+; ---------- Полярная форма
+; получение модуля из алгебраической формы
+(define (modul-from-algebraic z)
+  (sqrt (+ (expt (my-real-part z) 2) (expt (my-imag-part z) 2))))
+
+; получение аргумента из алгебраической формы
+(define (argument-from-algebraic z)
+  (atan (my-imag-part z) (my-real-part z)))
+
+; перевод из алгебраической в полярную форму
+(define (make-polar-from-algebraic z)
+  (cons (modul-from-algebraic z) (argument-from-algebraic z)))
+
+  
+
+; создание компл числа (модуль и аргумент)
+(define (make-modul-arg mod arg) (cons mod arg))
+
+; модуль компл числа
+(define (modul z) (car z))
+
+; аргумент компл числа
+(define (argument z) (cdr z))
+
+; вывод компл число в полярной форме
+(define (print-modul-arg z)
+  (printf ":: modul = ~a \t:: arg = ~a \n" (car z) (cdr z)))
+; ---------------------------------------------------
+
+
+
+
+
+; создание списка компл чисел
+; count - кол-во компл чисел
+(define (create-complex-list count)
+  (define (list-iter real imag i) ; итеративное создание пар(действительная, мнимая)
+    (cond ((= i count) ; если счетчик равен кол-ву компл чисел
+            (make-real-imag real imag)) ; возвращается последнее компл число
+          (else
+            ; иначе присоединение к паре компл числа следующего числа
+            (cons (make-real-imag real imag) (list-iter (+ real 1) (+ imag 2) (+ i 1)))))
+    )
+  ; вызов рекурсивной функции с начальными аргументами
+  (list-iter 1 4 1)) ; a b i
+
+
+
+
+; создание списка чисел в полярной форме из списка чисел в алгебраической форме
+(define (create-list-polar algebraic-list)
+  ; если список не пустой и car(list) не пара - значит это последняя пара списка
+  (cond ((and (not (null? algebraic-list)) (not (pair? (car algebraic-list))))
+          (make-polar-from-algebraic algebraic-list)) ; создать полярную форму из декартовой
+        (else
+          ; иначе рекурсивно соединять результаты преобразований в полярную форму
+          (cons (make-polar-from-algebraic (car algebraic-list))
+                (create-list-polar (cdr algebraic-list)))
+          )
+        )
+  )
+
+
+
+
+; вывод списков комплексных чисел в двух формах форме
+(define (print-two-forms list-algebraic list-polar)
+  ; если список не пустой и первый элемент пара
+  (cond ((and (not (null? list-algebraic)) (pair? (car list-algebraic)))
+          (print-real-imag (car list-algebraic)) ; вывесте компл число в алгебраической форме
+          (display "\t\t\t")
+          (print-modul-arg (car list-polar)) ; вывесте компл число в полярной форме
+          (print-two-forms (cdr list-algebraic) (cdr list-polar)))
+
+        (else ; иначе последняя пара в списке
+          (print-real-imag list-algebraic)
+          (display "\t\t\t")
+          (print-modul-arg list-polar))))
+
+
+
+
+
+; умножение двух компл чисел
+(define (multiply-two-complex complex-left complex-right)
+  (printf ":: умножение двух компл чисел :: ( ~a  *  ~a ) . ( ~a  *  ~a )\n" (modul complex-left) (modul complex-right) (argument complex-left) (argument complex-right))
+  (make-modul-arg (* (modul complex-left) (modul complex-right))
+                  (* (argument complex-left) (argument complex-right))))
+
+
+
+
+
+; обработка списка компл чисел для умножения (умножение в порярной форме)
+(define (multily-complex list-complex)
+  (cond ((not (pair? (cddr list-complex)))
+          (multiply-two-complex (car list-complex) (cdr list-complex)))
+        (else
+          (cons (multiply-two-complex (car list-complex) (cadr list-complex))
+                (multily-complex (cddr list-complex))))
+        )
+  )
+
+
+
+
+
+; список компл чисел в алгебраической форме (задаётся четное кол-во чисел)
+(define algebraic-list (create-complex-list 4))
+(printf "--> Исходный список компл. чисел :: ~a \n" algebraic-list)
+
+; преобразование списка компл чисел в полярную форму
+(define polar-list (create-list-polar algebraic-list))
+
+; вывод чисел в двух формах
+(print-two-forms algebraic-list polar-list)
+
+; создание списка в результате умножения пар компл чисел
+(define multiply-list (multily-complex polar-list))
+(printf "\n--> Список в результате умножения :: ~a \n" multiply-list)
+            </code>
+        </pre>
+      </div>
+      <div id="result" class="block">
+        <h3 class="block__title">Скріншот роботи та результату</h3>
+        <p class="block__subtitle">Задача 1</p>
+        <p class="block__text">
+          Результати роботи програми є коректним <br /><br />
+
+          Було створено парний список раціональних чисел у вигляді дробів, тобто
+          пар, використовуючи рекурсію. <br /><br />
+
+          Далі було виконано ділення дробей з переворотом другої дробі з
+          перемноженням значень, в результі чого отримав новий список з
+          поділеними дробами.
+        </p>
+        <span id="result_img_5_1" class="block__result_img"></span>
+
+        <p class="block__subtitle">Задача 2</p>
+        <p class="block__text">
+          Результати роботи програми є коректним <br /><br />
+
+          Використовуючи рекурсію було створено список з комплексними числами в
+          алгебраїчній формі a + ib. <br /><br />
+
+          Використовуючи рекурсію було переведно список з комплексними числами в
+          алгебраїчній формі у новий список у полярний вид.<br /><br />
+
+          Далі відображаємо значення з якими працюємо, та для кожного значення у
+          алгебраїчній формі відображаємо модуль та аргументи у полярній
+          формі.<br /><br />
+
+          Після чого виконав перемноження двох комплексних чисел, де для двох
+          чисел створив пари з множення модулей чисел та з множення аргументів
+          цих чисел.<br /><br />
+
+          У результаті чого отримали новий список.
+        </p>
+        <span id="result_img_5_2" class="block__result_img"></span>
+      </div>
+      <div id="conclusion" class="block">
+        <h3 class="block__title">Висновок</h3>
+        <p class="block__text">
+          Під час виконання даної лабоаторної роботи, було ознайомлено з темою
+          "Обробка раціональних та комплексних чисел мовами функціонального
+          програмування".
+        </p>
+        <p class="block__text">
+          Окрім того, було опановано технологію абстракції даних в мовах
+          функціонального програмування, реалізовано програму обробки
+          раціональних та комплексних чисел мовами функціонального
+          програмування, представивши ці числа конструкціями типу «пара»
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="links">
+        <h3 class="name link">
+          <a href="index.html">Functional Programming</a>
+        </h3>
+        <ul class="list">
+          <li class="item link"><a href="index.html">Головна</a></li>
+          <li class="item link"><a href="labs.html">Лабораторні</a></li>
+        </ul>
+      </div>
+      <div class="contacts">
+        <p class="contact">Куценко Микита Олександрович</p>
+        <a href="mailto:nikita.kutsenko2@gmail.com" class="link"
+          >nikita.kutsenko2@gmail.com</a
+        >
+        <a href="tel:+380984092300" class="link">+38 (098) 409-23-00</a>
+      </div>
+    </footer>
+  </body>
+</html>
