@@ -42,10 +42,10 @@
   (define res_left (f_left 0 expr a b h))
   (define res_right (f_right 0 expr a b h))
   (define res_mid (f_mid 0 expr a b h))
-  (printf "\n:::: Результати ::::\n:: Метод Сімпсона ::  ~a \n" res_simpson) ; 0.399022
-  (printf ":: Метод Лівих прямокутників ::  ~a \n" res_left) ; 0.042074
-  (printf ":: Метод Правих прямокутників ::  ~a \n" res_right) ; 0.224190
-  (printf ":: Метод Середніх прямокутників ::  ~a \n" res_mid) ; 10.371054
+  (printf "\n:::: Результати ::::\n:: Метод Сімпсона ::  ~a \n" res_simpson)
+  (printf ":: Метод Лівих прямокутників ::  ~a \n" res_left)
+  (printf ":: Метод Правих прямокутників ::  ~a \n" res_right)
+  (printf ":: Метод Середніх прямокутників ::  ~a \n" res_mid)
 )
 
 (init 0 pi 0.001)

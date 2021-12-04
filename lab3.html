@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>ФП | 3 Лабораторна Робота | Куценко Микита Олександрович</title>
+  </head>
+  <body id="main">
+    <header class="header">
+      <h1 class="name link"><a href="index.html">Functional Programming</a></h1>
+      <ul class="list">
+        <li class="item link"><a href="index.html">Головна</a></li>
+        <li class="item link"><a href="labs.html">Лабораторні</a></li>
+      </ul>
+    </header>
+    <section class="lab">
+      <h2 class="title">Лабораторна робота 3</h2>
+      <h3 class="theme">
+        "Форми lambda та let, вираз присвоєння set! для розв’язання нелінійних
+        рівнянь та чисельного інтегрування функцій"
+      </h3>
+      <div class="block">
+        <h3 class="block__title">Зміст</h3>
+        <ol class="block__list">
+          <li class="block__item">
+            <a href="#goal" class="link">Мета роботи</a>
+          </li>
+          <li class="block__item">
+            <a href="#condition" class="link">Умова завдання</a>
+          </li>
+          <li class="block__item">
+            <a href="#ide" class="link"
+              >Обґрунтування вибору мови функціонального програмування та IDE</a
+            >
+          </li>
+          <li class="block__item"><a href="#code" class="link">Код</a></li>
+          <li class="block__item">
+            <a href="#result" class="link">Скріншот роботи та результату</a>
+          </li>
+          <li class="block__item">
+            <a href="#conclusion" class="link">Висновок</a>
+          </li>
+        </ol>
+      </div>
+      <div id="goal" class="block">
+        <h3 class="block__title">Мета роботи</h3>
+        <p class="block__text">
+          Розв’язати нелінійні рівняння та здійснити чисельне інтегрування
+          функцій наближеними методами, використовуючи мови функціонального
+          програмування та lambda, let та set! форми.
+        </p>
+      </div>
+      <div id="condition" class="block">
+        <h3 class="block__title">Умова завдання</h3>
+        <p class="block__text"></p>
+        <ul class="block__list">
+          <!-- <span class="block__condition_var">10-2 </span> -->
+          <li class="block__item">
+            Написати процедури, що знаходять корені нелінійних рівнянь,
+            використовуючи форми
+            <span class="block__condition_var">lambda</span>,
+            <span class="block__condition_var">let</span>,
+            <span class="block__condition_var">set!</span>
+          </li>
+          <li class="block__item">
+            Написати процедури, що обчислюють інтеграл функції за формулами
+            прямокутників, трапецій, Сімпсона (парабол)
+          </li>
+        </ul>
+        <p class="block__text">Варіант: 13</p>
+        <ol class="block__condition_list">
+          <!-- &nbsp; -->
+          <!-- 
+                <span class="block__condition_var">EXAMPLE</span>
+             -->
+          <li class="block__condition_item">
+            Знайти корені нелінійного рівняння виду . Пошук наближеного значення
+            хоча б одного кореня рівняння
+            <span class="block__condition_var">f(x) = 0</span> на відрізку
+            <span class="block__condition_var">[a; b]</span> здійснювати
+            методами Ньютона та перебором. Значення
+            <span class="block__condition_var">a, b</span> інтервалу вибрати
+            самостійно. Порівняти результати розв’язків двома методами.
+          </li>
+          <li class="block__condition_item">
+            Написати процедури для обчислити інтеграла за формулами
+            прямокутників і Сімпсона. Порівняти результати обчислення.
+            <span id="condition_img_3_2" class="block__condition_img"></span>
+          </li>
+        </ol>
+      </div>
+      <div id="ide" class="block">
+        <h3 class="block__title">
+          Обґрунтування вибору мови функціонального програмування та IDE
+        </h3>
+        <p class="block__text">
+          Для виконання даної лабоаторної роботи, в якості мови програмування
+          було обрано Racket, оскільки ця мова є мовою функціональною та
+          належить сімейству Lisp / Scheme. Середовищем розробки було обрано
+          супутній редактор - DrRacket.
+        </p>
+      </div>
+      <div id="code" class="block">
+        <h3 class="block__title">Код</h3>
+        <p class="block__text">Задача 1</p>
+        <pre>
+            <code>
+#lang racket
+
+; Нелінійне рівняння: 2 - x - ln(x) = 0
+(define expr (lambda (x) (- (- 2 x) (log x))))
+; Похідна від нелінійного рівняння: -(x + 1) / x = 0
+(define expr_drv (lambda (x) (* -1 (/ (+ x 1) x))))
+
+
+; Метод Ньютона
+(define (f_newton err x)
+  ; Відображення поточних значень
+  (printf "\n--> err ::  ~a \n--> x ::  ~a \n" err x)
+  ; Перевірка поточних значень
+  (if (< (abs (expr x)) err)
+    x ; Якщо значення наближене до 0 то повертаємо поточне значення х
+    (f_newton err (- x (/ (expr x) (expr_drv x)))))) ; Інакше викликаємо поточну функцію використовуючи рекурсию та значення х яке зменшене
+; Метод Перебору
+(define (f_search err x b)
+  ; Відображення поточних значень
+  (printf "\n--> err ::  ~a \n--> x ::  ~a \n--> (abs (expr_drv x)) ::  ~a \n--> b ::  ~a \n" err x (abs (expr_drv x)) b)
+  ; Перевірка поточних значень
+  (if (and (< (abs (expr_drv x)) err) (<= x b))
+    x ; Якщо значення наближене до 0 то повертаємо поточне значення х
+    (f_search err (+ x err) b))) ; Інакше викликаємо поточну функцію використовуючи рекурсию та значення х яке збіьшене на 1 крок
+
+
+; Головна функція
+(define (init err a b)
+  ; Отримання результатів методу Ньютона
+  (define r_newton (f_newton err b))
+  ; Отримання результатів методу Перебору
+  (define r_search (f_search err a b))
+  (printf "\n:::: Результати ::::\nМетод Ньютона ::  ~a \n" r_newton)
+  (printf "Метод Перебору ::  ~a \n" r_search)
+
+  ; Отримання різниці значень
+  (if (number? r_search)
+    (begin
+      (printf "Різниця значень ::  ~a \n" (abs (- r_search r_newton))))
+    (displayln "В межах для простої ітерації рішення не знайдено"))
+)
+
+; Виклик
+(init 0.1 -3.14 1.667)
+            </code>
+        </pre>
+        <p class="block__text">Задача 2</p>
+        <pre>
+            <code>
+#lang racket
+
+
+; Метод Сімпсона
+(define (f_simpson sum expr a b h )
+  ; Отримуємо поточне значення трапеції
+  (define trap 0) 
+  (set! trap (* (/ h 3) (+ (expr a) (+ (* 4 (expr (+ a h))) (expr (+ a (+ h h)))))))
+  ; Перевірка поточних значень
+  (if (> a b)
+    sum
+    (f_simpson (+ sum trap) expr (+ a (+ h h)) b h)))
+
+(define (f_left sum expr a b h )
+  ; Перевірка поточних значень
+  (if (>= a b)
+    sum
+    (f_left (+ sum (* h (expr a))) expr (+ a h) b h)))
+
+(define (f_right sum expr a b h )
+  ; Перевірка поточних значень
+  (if (>= a b)
+    sum
+    (f_right (+ sum (* h (expr (+ a h)))) expr (+ a h) b h)))
+
+(define (f_mid sum expr a b h )
+  ; Отримуємо поточне значення трапеції
+  (define trap 0)
+  (set! trap (* h (* (+ (expr a) (expr (+ a h))) 0.5)))
+  ; Перевірка поточних значень
+  (if (> a b)
+    sum
+    (f_mid (+ sum trap) expr (+ a h) b h)))
+
+
+(define (init a b h)
+  ; Рівняння: e^(cos(x)) * cos(2x)
+  (define expr (lambda (x) (* (exp (cos x)) (cos (* 2 x)))))
+
+  ; Отримання значень для кожного методу
+  (define res_simpson (f_simpson 0 expr a b h))
+  (define res_left (f_left 0 expr a b h))
+  (define res_right (f_right 0 expr a b h))
+  (define res_mid (f_mid 0 expr a b h))
+  (printf "\n:::: Результати ::::\n:: Метод Сімпсона ::  ~a \n" res_simpson)
+  (printf ":: Метод Лівих прямокутників ::  ~a \n" res_left)
+  (printf ":: Метод Правих прямокутників ::  ~a \n" res_right)
+  (printf ":: Метод Середніх прямокутників ::  ~a \n" res_mid)
+)
+
+(init 0 pi 0.001)
+            </code>
+        </pre>
+      </div>
+      <div id="result" class="block">
+        <h3 class="block__title">Скріншот роботи та результату</h3>
+        <p class="block__subtitle">Задача 1</p>
+        <p class="block__text">
+          Як можно побачити отримані результати не є найбільш коректними,
+          оскільки різниця значень дуже велика. Намагаючись змінювати межі
+          обрахунків, отримати більш точний рехультат нажаль не вдалося.
+        </p>
+        <span id="result_img_3_1_1" class="block__result_img"></span>
+        <span id="result_img_3_1_2" class="block__result_img"></span>
+
+        <p class="block__subtitle">Задача 2</p>
+        <p class="block__text">
+          Результат роботи правильний, оскільки в діапазоні 4 числа, з яких: 2
+          числа з різними цифрами (108, 109) та 1 число з цифрами які непарні
+          (111). Тому сумма 3
+        </p>
+        <span id="result_img_3_2" class="block__result_img"></span>
+        <span id="result_img_3_2_calc" class="block__result_img"></span>
+      </div>
+      <div id="conclusion" class="block">
+        <h3 class="block__title">Висновок</h3>
+        <p class="block__text">
+          Під час виконання даної лабоаторної роботи, було ознайомлено з темою
+          "Форми lambda та let, вираз присвоєння set! для розв’язання нелінійних
+          рівнянь та чисельного інтегрування функцій".
+        </p>
+        <p class="block__text">
+          Окім того, було розв’язано нелінійні рівняння та здійснено чисельне
+          інтегрування функцій використовуючи методи Ньютона, Сімпсона, та
+          Лівих, Правих, Середніх прямокутників, використовуючи мови
+          функціонального програмування та lambda, let та set! форми.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="links">
+        <h3 class="name link">
+          <a href="index.html">Functional Programming</a>
+        </h3>
+        <ul class="list">
+          <li class="item link"><a href="index.html">Головна</a></li>
+          <li class="item link"><a href="labs.html">Лабораторні</a></li>
+        </ul>
+      </div>
+      <div class="contacts">
+        <p class="contact">Куценко Микита Олександрович</p>
+        <a href="mailto:nikita.kutsenko2@gmail.com" class="link"
+          >nikita.kutsenko2@gmail.com</a
+        >
+        <a href="tel:+380984092300" class="link">+38 (098) 409-23-00</a>
+      </div>
+    </footer>
+  </body>
+</html>

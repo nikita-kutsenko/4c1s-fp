@@ -372,6 +372,9 @@ body {
 #condition_img_2_1 {
   background-image: url("../img/condition_img_2_1.png");
 }
+#condition_img_3_2 {
+  background-image: url("../img/condition_img_3_2.png");
+}
 .lab .block pre {
   display: flex;
   justify-content: center;
@@ -419,6 +422,22 @@ body {
 #result_img_2_2 {
   height: 450px;
   background-image: url("../img/result_img_2_2.png");
+}
+#result_img_3_1_1 {
+  height: 650px;
+  background-image: url("../img/result_img_3_1_1.png");
+}
+#result_img_3_1_2 {
+  height: 700px;
+  background-image: url("../img/result_img_3_1_2.png");
+}
+#result_img_3_2 {
+  height: 100px;
+  background-image: url("../img/result_img_3_2.png");
+}
+#result_img_3_2_calc {
+  height: 100px;
+  background-image: url("../img/result_img_3_2_calc.png");
 }
 
 /* FOOTER */
