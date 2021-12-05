@@ -476,6 +476,18 @@ body {
   height: 150px;
   background-image: url("../img/result_img_6_2.png");
 }
+#result_img_7 {
+  height: 150px;
+  background-image: url("../img/result_img_7.png");
+}
+#result_img_7_1 {
+  height: 150px;
+  background-image: url("../img/result_img_7_1.png");
+}
+#result_img_7_2 {
+  height: 150px;
+  background-image: url("../img/result_img_7_2.png");
+}
 
 /* FOOTER */
 .footer {
