@@ -67,12 +67,12 @@
 
 ; создание очереди и добавление названия задач с приоритетами
 (define queue-nbrs (create-queue))
-(push-queue! queue-nbrs (cons "Task" 6))
-(push-queue! queue-nbrs (cons "Task" 5))
-(push-queue! queue-nbrs (cons "Task" 8))
-(push-queue! queue-nbrs (cons "Task" 3))
-(push-queue! queue-nbrs (cons "Task" 2))
-(push-queue! queue-nbrs (cons "Task" 1))
+(push-queue! queue-nbrs (cons "Task A" 6))
+(push-queue! queue-nbrs (cons "Task B" 5))
+(push-queue! queue-nbrs (cons "Task C" 8))
+(push-queue! queue-nbrs (cons "Task D" 3))
+(push-queue! queue-nbrs (cons "Task E" 2))
+(push-queue! queue-nbrs (cons "Task F" 1))
 
 
 ; вывод исходной очереди

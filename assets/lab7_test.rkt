@@ -1,7 +1,5 @@
 #lang racket
 
-
-
 ; запись в файл n строк
 (define (write-to-file filename)
   ;(delete-file filename) ; удалить файл, когда он существует
@@ -18,7 +16,6 @@
   (write-lines 0)
   
   (close-output-port fd)); закрытие файла
-
 
 
 
@@ -49,7 +46,6 @@
     )
   (iter-line 0)
   list-of-words) ; возвращение списка слов
-
 
 
 
@@ -103,8 +99,6 @@
   
   (main-iter)
   result-string)
-
-
 
 
 
@@ -166,40 +160,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ; записать в файл строки, считанные с клавиатуры
 (write-to-file "input.txt")
 
 ; вывод содержимого из файла
 (read-from-file "input.txt")
-
-
-
-
-
-
-
-
